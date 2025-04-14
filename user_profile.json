@@ -1,0 +1,10 @@
+{
+  "groceries": 5000,
+  "travel": 3000,
+  "dining": 2500,
+  "streaming": 500,
+  "gas": 1200,
+  "online_shopping": 1800,
+  "transit": 600,
+  "rotating": 1000
+}

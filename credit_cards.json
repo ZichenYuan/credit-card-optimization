@@ -1,0 +1,73 @@
+[
+  {
+    "name": "Chase Sapphire Reserve",
+    "annual_fee": 550,
+    "APR": 22.49,
+    "intro_bonus": 600,
+    "cashback": {
+      "travel": 0.05,
+      "dining": 0.03
+    },
+    "point_back": {
+      "travel": 0.05,
+      "dining": 0.03,
+      "all": 0.01
+    }
+  },
+  {
+    "name": "Amex Gold Card",
+    "annual_fee": 250,
+    "APR": 20.99,
+    "intro_bonus": 600,
+    "cashback": {
+      "dining": 0.04,
+      "groceries": 0.04
+    },
+    "point_back": {
+      "dining": 0.04,
+      "groceries": 0.04,
+      "travel": 0.03
+    }
+  },
+  {
+    "name": "Citi Double Cash",
+    "annual_fee": 0,
+    "APR": 19.24,
+    "intro_bonus": 200,
+    "cashback": {
+      "all": 0.02
+    }
+  },
+  {
+    "name": "Chase Freedom Flex",
+    "annual_fee": 0,
+    "APR": 20.49,
+    "intro_bonus": 200,
+    "cashback": {
+      "dining": 0.03,
+      "drugstores": 0.03,
+      "travel": 0.05,
+      "groceries": 0.05
+    },
+    "point_back": {
+      "dining": 0.03,
+      "drugstores": 0.03,
+      "travel": 0.05,
+      "groceries": 0.05
+    }
+  },
+  {
+    "name": "Capital One Venture X",
+    "annual_fee": 395,
+    "APR": 22.49,
+    "intro_bonus": 750,
+    "cashback": {
+      "travel": 0.05,
+      "all": 0.02
+    },
+    "point_back": {
+      "travel": 0.05,
+      "all": 0.02
+    }
+  }
+]

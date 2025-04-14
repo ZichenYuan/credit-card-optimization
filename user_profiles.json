@@ -1,0 +1,54 @@
+{
+  "profiles": [
+    {
+      "groceries": 4500,
+      "travel": 2500,
+      "dining": 1800,
+      "streaming": 400,
+      "gas": 900,
+      "online_shopping": 1500,
+      "transit": 800,
+      "rotating": 1200
+    },
+    {
+      "groceries": 6000,
+      "travel": 4000,
+      "dining": 3000,
+      "streaming": 600,
+      "gas": 1500,
+      "online_shopping": 2000,
+      "transit": 400,
+      "rotating": 1500
+    },
+    {
+      "groceries": 3500,
+      "travel": 1500,
+      "dining": 1200,
+      "streaming": 300,
+      "gas": 800,
+      "online_shopping": 1000,
+      "transit": 1000,
+      "rotating": 800
+    },
+    {
+      "groceries": 5500,
+      "travel": 3500,
+      "dining": 2200,
+      "streaming": 450,
+      "gas": 1100,
+      "online_shopping": 1700,
+      "transit": 700,
+      "rotating": 1300
+    },
+    {
+      "groceries": 4000,
+      "travel": 2000,
+      "dining": 1500,
+      "streaming": 350,
+      "gas": 950,
+      "online_shopping": 1200,
+      "transit": 900,
+      "rotating": 1000
+    }
+  ]
+} 
