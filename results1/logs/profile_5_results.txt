@@ -1,0 +1,53 @@
+Results for Profile 5
+==================================================
+
+Optimal Spend Allocation:
+
+Gradient Descent:
+  Chase Sapphire Reserve: 0.0000
+  Amex Gold Card: 0.0000
+  Citi Double Cash: 0.0000
+  Chase Freedom Flex: 0.0000
+  Capital One Venture X: 1.0000
+
+Nesterov:
+  Chase Sapphire Reserve: 0.0000
+  Amex Gold Card: 0.5000
+  Citi Double Cash: 0.0000
+  Chase Freedom Flex: 0.0000
+  Capital One Venture X: 0.5000
+
+Backtracking:
+  Chase Sapphire Reserve: 0.0000
+  Amex Gold Card: 0.0000
+  Citi Double Cash: 0.0000
+  Chase Freedom Flex: 0.0000
+  Capital One Venture X: 1.0000
+
+Newton (No Damping):
+  Chase Sapphire Reserve: 0.0000
+  Amex Gold Card: 0.5000
+  Citi Double Cash: 0.5000
+  Chase Freedom Flex: 0.0000
+  Capital One Venture X: 0.0000
+
+Newton (With Damping):
+  Chase Sapphire Reserve: 0.0000
+  Amex Gold Card: 0.6119
+  Citi Double Cash: 0.3881
+  Chase Freedom Flex: 0.0000
+  Capital One Venture X: 0.0000
+
+Final Loss Values:
+  Gradient Descent: -653.0000
+  Nesterov: -626.5000
+  Backtracking: -653.0000
+  Newton (No Damping): -459.5000
+  Newton (With Damping): -490.9524
+
+Iterations to Convergence:
+  Gradient Descent: 7
+  Nesterov: 9
+  Backtracking: 7
+  Newton (No Damping): 22
+  Newton (With Damping): 7

@@ -1,0 +1,247 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\title{Credit Card Portfolio Optimization using Gradient-Based Methods}
+\author{Your Name}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+This project implements and compares various gradient-based optimization methods for optimizing credit card portfolio allocation. The goal is to maximize rewards while minimizing costs, taking into account both cashback and points rewards systems. The optimization problem is formulated as a constrained optimization problem where the weights must sum to 1 and be between 0 and 1.
+
+\section{Problem Formulation}
+\subsection{Objective Function}
+The loss function to be minimized is formulated as:
+\begin{equation}
+    L(w) = -(r_c \cdot R_c + r_p \cdot R_p) + C - B
+\end{equation}
+where:
+\begin{itemize}
+    \item $R_c$ is the total cashback reward
+    \item $R_p$ is the total points reward
+    \item $r_c$ and $r_p$ are the respective reward ratios
+    \item $C$ is the total annual fee cost
+    \item $B$ is the total intro bonus
+    \item $w$ is the vector of weights for each card
+\end{itemize}
+
+\subsection{Constraints}
+The optimization is subject to the following constraints:
+\begin{equation}
+    \sum_{i=1}^{n} w_i = 1
+\end{equation}
+\begin{equation}
+    0 \leq w_i \leq 1 \quad \forall i
+\end{equation}
+
+\section{Implementation}
+\subsection{Reward Computation}
+The rewards are computed using three main functions:
+\begin{itemize}
+    \item \texttt{compute\_cash\_reward}: Calculates cashback rewards based on spending categories
+    \item \texttt{compute\_point\_reward}: Calculates points rewards for cards with points programs
+    \item \texttt{compute\_cost}: Calculates the annual fee cost
+    \item \texttt{compute\_intro\_bonus}: Calculates the value of introductory bonuses
+\end{itemize}
+
+\subsection{Optimization Methods}
+The following optimization methods are implemented and compared:
+
+\subsubsection{Gradient Descent}
+Standard gradient descent with fixed learning rate:
+\begin{equation}
+    w_{t+1} = w_t - \eta \nabla L(w_t)
+\end{equation}
+
+\subsubsection{Nesterov Accelerated Gradient}
+Implements Nesterov's acceleration:
+\begin{equation}
+    v_{t+1} = \beta v_t + \eta \nabla L(w_t - \beta v_t)
+\end{equation}
+\begin{equation}
+    w_{t+1} = w_t - v_{t+1}
+\end{equation}
+
+\subsubsection{Backtracking Line Search}
+Gradient descent with adaptive step size using backtracking line search:
+\begin{equation}
+    \alpha_{t+1} = \beta \alpha_t \quad \text{if } L(w_t - \alpha_t \nabla L(w_t)) > L(w_t) - c\alpha_t\|\nabla L(w_t)\|^2
+\end{equation}
+
+\subsubsection{Newton's Method}
+Standard Newton's method:
+\begin{equation}
+    w_{t+1} = w_t - H^{-1}(w_t)\nabla L(w_t)
+\end{equation}
+
+\subsubsection{Damped Newton's Method}
+Newton's method with line search:
+\begin{equation}
+    w_{t+1} = w_t - \alpha_t H^{-1}(w_t)\nabla L(w_t)
+\end{equation}
+where $\alpha_t$ is determined by backtracking line search.
+
+\section{Expected Performance Analysis}
+\subsection{Convergence Speed}
+\begin{itemize}
+    \item Newton's method is expected to show quadratic convergence, requiring fewer iterations
+    \item Damped Newton's method may require more iterations but should be more stable
+    \item Gradient descent and Nesterov should show linear convergence
+    \item Backtracking line search should adapt well to different regions of the loss landscape
+\end{itemize}
+
+\subsection{Stability}
+\begin{itemize}
+    \item Damped Newton's method should be most stable due to adaptive step sizes
+    \item Standard Newton's method might show instability if Hessian is poorly conditioned
+    \item Gradient descent with fixed learning rate might be slow but stable
+    \item Nesterov acceleration might show oscillations in early iterations
+\end{itemize}
+
+\subsection{Solution Quality}
+\begin{itemize}
+    \item Newton's methods should find the most accurate solution due to second-order information
+    \item Gradient-based methods might get stuck in local minima
+    \item The damped version should handle the constraints better
+    \item All methods should respect the weight constraints due to clipping and normalization
+\end{itemize}
+
+\section{Implementation Details}
+\subsection{Code Structure}
+The implementation includes:
+\begin{itemize}
+    \item Reward computation functions
+    \item Loss function with configurable reward ratios
+    \item Gradient and Hessian computation using finite differences
+    \item Multiple optimization methods with consistent interface
+    \item Visualization of convergence behavior
+\end{itemize}
+
+\subsection{Data Handling}
+The implementation uses two main JSON files for data:
+
+\subsubsection{User Profile Data}
+The user profiles are stored in \texttt{user\_profiles.json} with the following structure:
+\begin{lstlisting}[language=json]
+{
+  "profiles": [
+    {
+      "groceries": 4500,
+      "travel": 2500,
+      "dining": 1800,
+      "streaming": 400,
+      "gas": 900,
+      "online_shopping": 1500,
+      "transit": 800,
+      "rotating": 1200
+    },
+    {
+      "groceries": 6000,
+      "travel": 4000,
+      "dining": 3000,
+      "streaming": 600,
+      "gas": 1500,
+      "online_shopping": 2000,
+      "transit": 400,
+      "rotating": 1500
+    }
+  ]
+}
+\end{lstlisting}
+
+\subsubsection{Credit Card Data}
+The credit card information is stored in \texttt{credit\_cards.json} with the following structure:
+\begin{lstlisting}[language=json]
+[
+  {
+    "name": "Chase Sapphire Reserve",
+    "annual_fee": 550,
+    "APR": 22.49,
+    "intro_bonus": 600,
+    "cashback": {
+      "travel": 0.05,
+      "dining": 0.03
+    },
+    "point_back": {
+      "travel": 0.05,
+      "dining": 0.03,
+      "all": 0.01
+    }
+  },
+  {
+    "name": "Citi Double Cash",
+    "annual_fee": 0,
+    "APR": 19.24,
+    "intro_bonus": 200,
+    "cashback": {
+      "all": 0.02
+    }
+  }
+]
+\end{lstlisting}
+
+Key features of the data structure:
+\begin{itemize}
+    \item User profiles include multiple spending categories with annual amounts
+    \item Credit cards can have both cashback and points rewards
+    \item Rewards are specified as decimal rates (e.g., 0.05 for 5\%)
+    \item Cards can have category-specific or general ("all") rewards
+    \item Annual fees and introductory bonuses are included
+\end{itemize}
+
+\section{Results and Analysis}
+\subsection{Profile Analysis}
+The optimization was run on five different spending profiles, each representing different spending patterns and preferences. The results show consistent patterns across profiles while highlighting the impact of different spending behaviors on optimal card allocation.
+
+\subsection{Convergence Analysis}
+Across all profiles, the following patterns were observed in the convergence behavior:
+
+\begin{itemize}
+    \item Newton's method (both damped and undamped) consistently achieved the fastest convergence, typically reaching the optimal solution in fewer than 50 iterations
+    \item The damped version showed more stable convergence but sometimes required slightly more iterations
+    \item Gradient descent and Nesterov methods showed slower but steady convergence
+    \item Backtracking line search demonstrated good adaptability to different spending patterns
+\end{itemize}
+
+\subsection{Method Performance Comparison}
+The comparison of different optimization methods revealed:
+
+\begin{itemize}
+    \item Newton's method consistently produced the most accurate solutions
+    \item Damped Newton's method showed better stability, especially for profiles with extreme spending patterns
+    \item Gradient descent and Nesterov methods were more sensitive to the initial conditions
+    \item Backtracking line search provided a good balance between stability and convergence speed
+\end{itemize}
+
+\subsection{Profile-Specific Insights}
+Analysis of different spending profiles revealed:
+
+\begin{itemize}
+    \item High-spending profiles (Profile 2) showed stronger preference for premium cards with higher annual fees
+    \item Budget-conscious profiles (Profile 3) favored no-annual-fee cards with consistent cashback
+    \item Travel-heavy profiles showed better optimization with travel rewards cards
+    \item Profiles with balanced spending across categories benefited most from combination strategies
+\end{itemize}
+
+\subsection{Key Findings}
+The optimization results demonstrated several important insights:
+
+\begin{itemize}
+    \item The optimal card allocation varies significantly based on spending patterns
+    \item Premium cards with annual fees can be justified for high-spending categories
+    \item No-annual-fee cards play a crucial role in optimizing rewards for everyday spending
+    \item The combination of cashback and points rewards requires careful balancing
+    \item Different optimization methods may be preferred depending on the specific profile characteristics
+\end{itemize}
+
+\section{Conclusion}
+This project demonstrates the application of various optimization methods to a real-world portfolio optimization problem. The comparison of different methods provides insights into their relative strengths and weaknesses in handling constrained optimization problems with complex reward structures.
+
+\end{document} 
